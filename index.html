@@ -6,6 +6,30 @@
   <title>AUTOMOTORES PCA</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+  .galeria-item {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+  }
+  .carrusel {
+    flex-direction: column;
+    align-items: center;
+  }
+  .galeria img {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .prev, .next {
+    font-size: 24px;
+    padding: 10px;
+  }
+}
+
     /* Reset básico */
     * {
       margin: 0;
@@ -817,28 +841,34 @@ body, html {
     });
   </script>
   <script>
+  // Cada carrusel tiene su propio índice
   document.querySelectorAll('.carrusel').forEach(carrusel => {
     const images = carrusel.querySelectorAll('img');
-    let current = 0;
+    const prevBtn = carrusel.querySelector('.prev');
+    const nextBtn = carrusel.querySelector('.next');
+    let currentIndex = 0;
 
     const showImage = index => {
       images.forEach((img, i) => {
-        img.classList.toggle('active', i === index);
+        img.style.display = i === index ? 'block' : 'none';
       });
     };
 
-    carrusel.querySelector('.next').addEventListener('click', () => {
-      current = (current + 1) % images.length;
-      showImage(current);
+    showImage(currentIndex);
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex);
     });
 
-    carrusel.querySelector('.prev').addEventListener('click', () => {
-      current = (current - 1 + images.length) % images.length;
-      showImage(current);
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
     });
+  });
 
     showImage(current);
-  });
+  ;
   function toggleZoom(img) {
     img.classList.toggle('zoomed');
   }
