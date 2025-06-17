@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AUTOMOTORES PCA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #eee;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      z-index: 10000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    header .logo {
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #e63946; /* rojo */
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .logo img {
+      height: 150px;
+      width: 350px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #e63946; /* rojo */
+      color: #111;
+    }
+
+    /* Secciones principales */
+    section {
+      padding: 100px 20px 60px; /* extra top padding para no quedar debajo del header fijo */
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+  /* Hero / Inicio */
+#inicio {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    url('TITULO.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #e63946;
+  text-align: center;
+  padding: 0 20px;
+  overflow: hidden;
+  max-width: 100vw;     /* <- IMPORTANTE */
+  margin: 0;            /* <- evita centrado limitado */
+}
+    #inicio h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+
+    #inicio p {
+      font-size: 1.3rem;
+      font-weight: 600;
+      max-width: 600px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Nosotros */
+    #nosotros h2,
+    #autosymotos h2,
+    #camionetas h2,
+    #servicios h2,
+    #contacto h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #e63946; /* rojo */
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    #nosotros p {
+      font-size: 1.1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      color: #ddd;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    /* Galerías Autos y Camionetas */
+    
+    .galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.galeria-item {
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.galeria-item:hover {
+  transform: translateY(-5px);
+}
+
+.galeria-item img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+.galeria img.zoomed {
+  transform: scale(1.5);
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 10;
+  cursor: zoom-out;
+}
+    /* Servicios */
+    #servicios ul {
+      max-width: 800px;
+      margin: 1rem auto 2rem auto;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #servicios ul li {
+      background: #222;
+      margin-bottom: 0.7rem;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      color: #ddd;
+      font-weight: 600;
+      box-shadow: 0 0 8px rgba(230, 57, 70, 0.2);
+      transition: background-color 0.3s;
+    }
+
+    #servicios ul li:hover {
+      background-color: #333;
+    }
+
+    #servicios .mp-btn {
+      display: inline-block;
+      background-color: #e63946; /* rojo */
+      color: #111;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: background-color 0.3s;
+      margin-top: 1rem;
+      user-select: none;
+    }
+
+    #servicios .mp-btn:hover {
+      background-color: #c8333c;
+    }
+
+    /* Formulario contacto */
+    #contacto form {
+      max-width: 600px;
+      margin: 1rem auto 0;
+      background: #111;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
+    }
+
+    #contacto label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #e63946; /* rojo */
+    }
+
+    #contacto input,
+    #contacto textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: #eee;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    #contacto input[type="submit"] {
+      background-color: #e63946; /* rojo */
+      color: #111;
+      font-weight: 700;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+
+    #contacto input[type="submit"]:hover {
+      background-color: #c8333c;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #111;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      nav ul {
+        gap: 1rem;
+      }
+
+      #inicio h1 {
+        font-size: 2.5rem;
+      }
+    }
+     .whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .whatsapp-btn img {
+      width: 60px;
+      height: 60px;
+    }
+   .carrusel {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* limita el tamaño máximo del carrusel */
+  height: 200px;
+  overflow: hidden;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.carrusel img {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carrusel img.active {
+  display: block;
+}
+
+.carrusel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.6);
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carrusel .prev {
+  left: 5px;
+}
+
+.carrusel .next {
+  right: 5px;
+}
+.vehicle-img {
+    width: 200px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .vehicle-img.zoomed {
+    transform: scale(1.5);
+    z-index: 10;
+    position: relative;
+  }
+   /* Estilos para las imágenes */
+   .galeria img {
+    width: 200px; /* un poco más chicas */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .galeria img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Modal fondo */
+  #imageModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Imagen dentro del modal */
+  #imageModal img {
+    max-width: 50vw;  /* un poco más pequeña */
+    max-height: 50vh;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #000;
+    user-select: none;
+  }
+
+  /* Botones de flecha */
+  .modal-arrow {
+    position: fixed;
+    top: 50%;
+    font-size: 40px;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transform: translateY(-50%);
+    transition: background 0.3s ease;
+  }
+  .modal-arrow:hover {
+    background: rgba(0,0,0,0.7);
+  }
+  #arrowLeft {
+    left: 20px;
+  }
+  #arrowRight {
+    right: 20px;
+  }
+
+  /* Botón cerrar */
+  #closeBtn {
+    position: fixed;
+    top: 20px; right: 30px;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+  }
+  .titulo-seccion {
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+ #imageModal {
+    display: none; /* Esto asegura que el modal esté oculto al cargar */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  #imageModal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+
+  .modal-arrow {
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+    z-index: 10000;
+  }
+
+  #arrowLeft {
+    left: 20px;
+  }
+
+  #arrowRight {
+    right: 20px;
+  }
+
+  #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  </style>
+</head>
+<body>
+
+
+  <header>
+    <div class="logo">
+      <!-- Poné tu logo acá, si no lo tenés todavía, dejalo en texto -->
+      <!--<img src="Phantom.png" alt="PCA Automotores Logo" />-->
+      <img src="12.png" alt="PCA Automotores Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#inicio" class="active">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#autosymotos">Autos y Motos</a></li>
+        <li><a href="#camionetas">Camionetas</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Inicio -->
+    <section id="inicio">
+      
+    </section>
+
+    <!-- Nosotros -->
+    <section id="nosotros">
+      <h2>Nosotros</h2>
+      <p>
+        En PCA AUTOMOTORES arrancamos con todo en el año 2024 con un objetivo muy claro: que cada persona que se acerque a nosotros se vaya con una sonrisa y con el vehículo que realmente necesita. Somos un equipo apasionado por los autos y las motos, y nos mueve la confianza, la transparencia y la dedicación al cliente.
+
+    Acá no hay vueltas raras ni promesas vacías. Todos nuestros vehículos —ya sean usados o 0km— pasan por una revisión minuciosa antes de ser publicados. Nos tomamos el tiempo de chequear cada detalle: el estado mecánico, la documentación, la estética, y sobre todo, que estén listos para salir a la calle sin darte dolores de cabeza. Queremos que compres tranquilo, sabiendo que estás invirtiendo bien.
+
+    Nos importa más que nada tu experiencia como comprador. Por eso te asesoramos desde el primer momento, te acompañamos en cada paso y respondemos todas tus dudas sin apuro. Ya sea tu primer auto, una moto para moverte por la ciudad o una camioneta para el laburo, estamos para ayudarte.
+
+    Elegirnos es elegir compromiso, es elegir trato humano, y sobre todo, es saber que detrás de cada venta hay un equipo que se preocupa por vos. En PCA AUTOMOTORES, no solo vendemos vehículos... construimos relaciones que valen la pena.
+      </p>
+    </section>
+  
+<section id="autosymotos">
+    <h2>Autos y Motos</h2>
+  <div class="galeria">
+    <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="benelli.jpg" alt="Foto 1" onclick="openModal(this)" data-group="benelli" class="zoomable" />
+  <img src="benelli2.jpg" alt="Foto 2" onclick="openModal(this)" data-group="benelli" class="zoomable" />
+  <img src="benelli3.jpg" alt="Foto 3" onclick="openModal(this)" data-group="benelli" class="zoomable" />
+  <img src="benelli4.jpg" alt="Foto 4" onclick="openModal(this)" data-group="benelli" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3>Benelli 302s
+        33.000kms
+        Año 2022
+      </h3>
+    </div>
+    <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="clio.jpg" alt="Foto 5" onclick="openModal(this)" data-group="clio" class="zoomable" />
+  <img src="clio1.jpg" alt="Foto 6" onclick="openModal(this)" data-group="clio" class="zoomable" />
+  <img src="clio2.jpg" alt="Foto 7" onclick="openModal(this)" data-group="clio" class="zoomable" />
+  <img src="clio3.jpg" alt="Foto 8" onclick="openModal(this)" data-group="clio" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3>Clio 2016 
+        100.000kms
+      Unico dueño
+      </h3>
+    </div>
+        <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="supermo1.jpg" alt="Foto 9" onclick="openModal(this)" data-group="supermo" class="zoomable" />
+  <img src="supermo.jpg" alt="Foto 10" onclick="openModal(this)" data-group="supermo" class="zoomable" />
+  <img src="supermo2.jpg" alt="Foto 11" onclick="openModal(this)" data-group="supermo" class="zoomable" />
+  <img src="supermo3.jpg" alt="Foto 12" onclick="openModal(this)" data-group="supermo" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3>Tornado Supermotard 293cc
+        Año 2009
+      </h3>
+    </div>
+        <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="etios.jpg" alt="Foto 13" onclick="openModal(this)" data-group="etios" class="zoomable" />
+  <img src="etios1.jpg" alt="Foto 14" onclick="openModal(this)" data-group="etios" class="zoomable" />
+  <img src="etios2.jpg" alt="Foto 15" onclick="openModal(this)" data-group="etios" class="zoomable" />
+  <img src="etios3.jpg" alt="Foto 16" onclick="openModal(this)" data-group="etios" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> Etios Año 2023 
+        49.000kms
+      </h3>
+    </div>
+    <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="twister.jpg" alt="Foto 17" onclick="openModal(this)" data-group="twister" class="zoomable" />
+  <img src="twister1.jpg" alt="Foto 18" onclick="openModal(this)" data-group="twister" class="zoomable" />
+  <img src="twister2.jpg" alt="Foto 19" onclick="openModal(this)" data-group="twister" class="zoomable" />
+  <img src="twister3.jpg" alt="Foto 20" onclick="openModal(this)" data-group="twister" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> Cb Twister 250 Año 2021 23.500kms
+      </h3>
+       </div>
+      <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="torni1.jpg" alt="Foto 21" onclick="openModal(this)" data-group="torni" class="zoomable" />
+  <img src="torni.jpg" alt="Foto 22" onclick="openModal(this)" data-group="torni" class="zoomable" />
+  <img src="torni2.jpg" alt="Foto 23" onclick="openModal(this)" data-group="torni" class="zoomable" />
+  <img src="torni3.jpg" alt="Foto 24" onclick="openModal(this)" data-group="torni" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> Tornado 2017 armado a 340cc
+      </h3>
+      </div>
+    </section>
+    
+<div id="imageModal" onclick="if(event.target.id === 'imageModal') closeModal()">
+  <span id="closeBtn" onclick="closeModal()">&times;</span>
+  <span id="arrowLeft" class="modal-arrow" onclick="prevImage(event)">&#8592;</span>
+  <img id="modalImg" src="" alt="Imagen ampliada" />
+  <span id="arrowRight" class="modal-arrow" onclick="nextImage(event)">&#8594;</span>
+</div>
+
+    <!-- Camionetas -->
+    <section id="camionetas">
+      <h2>Camionetas</h2>
+      <div class="galeria">
+        <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="v61.jpg" alt="Foto 25" onclick="openModal(this)" data-group="v6" class="zoomable" />
+  <img src="v6.jpg" alt="Foto 26" onclick="openModal(this)" data-group="v6" class="zoomable" />
+  <img src="v62.jpg" alt="Foto 27" onclick="openModal(this)" data-group="v6" class="zoomable" />
+  <img src="v63.jpg" alt="Foto 28" onclick="openModal(this)" data-group="v6" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> Amarok V6 Extreme Año 2020
+      </h3>
+      </div>
+        <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="hilux.jpg" alt="Foto 29" onclick="openModal(this)" data-group="hx" class="zoomable" />
+  <img src="hilux1.jpg" alt="Foto 30" onclick="openModal(this)" data-group="hx" class="zoomable" />
+  <img src="hilux2.jpg" alt="Foto 31" onclick="openModal(this)" data-group="hx" class="zoomable" />
+  <img src="hilux3.jpg" alt="Foto 32" onclick="openModal(this)" data-group="hx" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> Hilux Año 2020 dc 4x4
+      </h3>
+      </div>
+        <div class="galeria-item">
+      <div class="carrusel">
+        <section class="galeria">
+  <img src="crv1.jpg" alt="Foto 29" onclick="openModal(this)" data-group="crv" class="zoomable" />
+  <img src="crv.jpg" alt="Foto 30" onclick="openModal(this)" data-group="crv" class="zoomable" />
+  <img src="crv2.jpg" alt="Foto 31" onclick="openModal(this)" data-group="crv" class="zoomable" />
+  <img src="crv3.jpg" alt="Foto 32" onclick="openModal(this)" data-group="crv" class="zoomable" />
+</section>
+        <button class="prev">←</button>
+        <button class="next">→</button>
+      </div>
+      <h3> CR-V 2007 4X4 312.000kms
+      </h3>
+      </div>
+      </div>
+    </section>
+    
+
+    <!-- Servicios -->
+<section id="servicios" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+  <!-- Columna de texto -->
+  <div style="flex: 1; min-width: 280px;">
+    <h2>VERIFICACIÓN PRE-COMPRA</h2>
+    <ul>
+      <li>Escaneo computarizado</li>
+      <li>Kilómetros reales</li>
+      <li>Identificación de paneles repintados</li>
+      <li>Detección de anomalías</li>
+      <li>Prueba de manejo</li>
+      <li>Detalle de mantenimientos</li>
+      <li>Ficha de peritaje</li>
+      <li>Informe de dominio</li>
+      <li>Servicio a domicilio</li>
+    </ul>
+    <p><strong>Precio:</strong> $120.000</p>
+    <p><em>Válido para CABA y zona norte del Gran Buenos Aires.</em></p>
+    <a href="https://mpago.la/1Djyajy" target="_blank" class="mp-btn" rel="noopener noreferrer" style="display:inline-block; margin-top: 1rem; background:rgb(6, 26, 92); color:#fff; padding: 0.7rem 1.2rem; border-radius: 8px; text-decoration: none;">
+      Ir a MercadoPago
+    </a>
+  </div>
+
+  <!-- Columna de video -->
+  <div style="flex: 1; min-width: 280px;">
+    <video width="100%" controls autoplay muted loop style="border-radius: 10px;">
+      <source src="videos/servicio.mp4" type="video/mp4">
+      Tu navegador no soporta la etiqueta de video.
+    </video>
+  </div>
+</section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <form action="mailto:automotorespca@gmail.com" method="POST" enctype="text/plain">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="Nombre" required />
+
+        <label for="asunto">Asunto</label>
+        <input type="text" id="asunto" name="Asunto" required />
+
+        <label for="consulta">Consultá</label>
+        <textarea id="consulta" name="Consulta" rows="6" required></textarea>
+
+        <input type="submit" value="Enviar" />
+      </form>
+    </section>
+     <a href="https://wa.me/5491151366821" target="_blank" class="whatsapp-btn" aria-label="Whatsapp PCA Automotores">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+  </a>
+  </main>
+
+  <footer>
+    &copy; 2025 PCA AUTOMOTORES. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // Script para cambiar clase "active" en el menú según sección visible
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const scrollPos = window.pageYOffset + 120; // Offset para header fijo
+
+      sections.forEach(section => {
+        if (scrollPos >= section.offsetTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script>
+  document.querySelectorAll('.carrusel').forEach(carrusel => {
+    const images = carrusel.querySelectorAll('img');
+    let current = 0;
+
+    const showImage = index => {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    };
+
+    carrusel.querySelector('.next').addEventListener('click', () => {
+      current = (current + 1) % images.length;
+      showImage(current);
+    });
+
+    carrusel.querySelector('.prev').addEventListener('click', () => {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    });
+
+    showImage(current);
+  });
+  function toggleZoom(img) {
+    img.classList.toggle('zoomed');
+  }
+   function openModal(img) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+  }
+
+  function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+  }
+
+  // También cerrar modal al hacer clic fuera de la imagen
+  window.onclick = function(event) {
+    const modal = document.getElementById('imageModal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+  const images = [
+    { src: "benelli.jpg", alt: "Foto 1" },
+    { src: "benelli2.jpg", alt: "Foto 2" },
+    { src: "benelli3.jpg", alt: "Foto 3" },
+    { src: "benelli4.jpg", alt: "Foto 4" },
+  ];
+  let currentIndex = 0;
+
+  function openModal(index) {
+    currentIndex = index;
+    updateModalImage();
+    document.getElementById('imageModal').style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+  }
+
+  function updateModalImage() {
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = images[currentIndex].src;
+    modalImg.alt = images[currentIndex].alt;
+  }
+
+  function prevImage(event) {
+    event.stopPropagation(); // evita cerrar modal
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateModalImage();
+  }
+
+  function nextImage(event) {
+    event.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    updateModalImage();
+  }
+
+  // Opcional: Navegar con teclado
+  window.addEventListener('keydown', function(event) {
+    if(document.getElementById('imageModal').style.display === "flex") {
+      if(event.key === "ArrowLeft") prevImage(event);
+      else if(event.key === "ArrowRight") nextImage(event);
+      else if(event.key === "Escape") closeModal();
+    }
+  });
+   images = [];         // Imágenes del grupo actual
+currentIndex = 0;
+
+function openModal(clickedImg) {
+  const group = clickedImg.getAttribute('data-group');
+  const groupImages = Array.from(document.querySelectorAll(`img[data-group="${group}"]`));
+
+  images = groupImages.map(img => ({
+    src: img.src,
+    alt: img.alt
+  }));
+
+  currentIndex = groupImages.findIndex(img => img === clickedImg);
+
+  updateModalImage();
+  document.getElementById('imageModal').style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById('imageModal').style.display = "none";
+}
+
+function updateModalImage() {
+  const modalImg = document.getElementById('modalImg');
+  modalImg.src = images[currentIndex].src;
+  modalImg.alt = images[currentIndex].alt;
+}
+
+function prevImage(event) {
+  event.stopPropagation();
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  updateModalImage();
+}
+
+function nextImage(event) {
+  event.stopPropagation();
+  currentIndex = (currentIndex + 1) % images.length;
+  updateModalImage();
+}
+
+window.addEventListener('keydown', function(event) {
+  const modal = document.getElementById('imageModal');
+  if (modal.style.display === "flex") {
+    if (event.key === "ArrowLeft") prevImage(event);
+    else if (event.key === "ArrowRight") nextImage(event);
+    else if (event.key === "Escape") closeModal();
+  }
+});
+images = [];
+currentIndex = 0;
+
+  function openModal(imgElement) {
+    const group = imgElement.getAttribute('data-group');
+    const groupImages = Array.from(document.querySelectorAll(`img[data-group="${group}"]`));
+
+    images = groupImages.map(img => ({
+      src: img.src,
+      alt: img.alt
+    }));
+
+    currentIndex = groupImages.indexOf(imgElement);
+    updateModalImage();
+    document.getElementById('imageModal').style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById('imageModal').style.display = "none";
+  }
+
+  function updateModalImage() {
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = images[currentIndex].src;
+    modalImg.alt = images[currentIndex].alt;
+  }
+
+  function prevImage(event) {
+    event.stopPropagation();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateModalImage();
+  }
+
+  function nextImage(event) {
+    event.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    updateModalImage();
+  }
+
+  window.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('imageModal');
+    if (modal.style.display === "flex") {
+      if (event.key === "ArrowLeft") prevImage(event);
+      else if (event.key === "ArrowRight") nextImage(event);
+      else if (event.key === "Escape") closeModal();
+    }
+  });
+  
+</script>
+
+</script>
+</body>
+</html>
+
+
+
+
