@@ -463,6 +463,83 @@
     cursor: pointer;
     z-index: 10000;
   }
+ /* Asegura que todo el sitio se adapte al ancho del dispositivo */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Galería responsiva */
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.galeria-item {
+  flex: 1 1 300px;
+  max-width: 100%;
+}
+
+.galeria img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Carrusel responsivo */
+.carrusel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carrusel img {
+  width: 100%;
+  height: auto;
+}
+
+/* Botones prev/next adaptables */
+.carrusel button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carrusel .prev { left: 10px; }
+.carrusel .next { right: 10px; }
+
+/* Responsive: cambia columnas a filas en móvil */
+@media screen and (max-width: 768px) {
+  #servicios {
+    flex-direction: column;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .galeria-item h3 {
+    font-size: 1rem;
+  }
+
+  .carrusel button {
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
 
   </style>
 </head>
